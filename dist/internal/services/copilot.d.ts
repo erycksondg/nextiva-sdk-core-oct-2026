@@ -1,0 +1,42 @@
+import { type InjectionContainer } from '../dependencyInjectionContainer';
+import type { EventsService, StateService, LoggerService } from '../../services';
+import type { CopilotSession, FetchCopilotSessionsPayload, FetchCopilotSessionsResponse, FetchCopilotSessionPayload, FetchCopilotSessionResponse, FetchCopilotSessionMessagesPayload, FetchCopilotSessionMessagesResponse, CreateCopilotSessionPayload, CreateCopilotSessionResponse, RenameCopilotSessionPayload, SendCopilotMessagePayload, SendCopilotMessageResponse } from '../../types';
+export declare class BaseCopilotService {
+    private queryCacheUnsubscribe?;
+    protected stateService: StateService;
+    protected eventsService: EventsService;
+    protected logger: LoggerService;
+    private sessionsLoading;
+    private sessionLoadingStates;
+    private activeStreams;
+    constructor({ eventsService, loggerService, stateService, }: Pick<InjectionContainer, 'stateService' | 'eventsService' | 'loggerService'>);
+    fetchSessions(params?: FetchCopilotSessionsPayload): Promise<FetchCopilotSessionsResponse>;
+    fetchSession(params: FetchCopilotSessionPayload): Promise<FetchCopilotSessionResponse>;
+    fetchSessionMessages(params: FetchCopilotSessionMessagesPayload): Promise<FetchCopilotSessionMessagesResponse>;
+    createSession(params?: CreateCopilotSessionPayload): Promise<CreateCopilotSessionResponse>;
+    renameSession(params: RenameCopilotSessionPayload): Promise<CopilotSession>;
+    deleteSession(sessionId: string): Promise<void>;
+    sendMessage(params: SendCopilotMessagePayload): Promise<SendCopilotMessageResponse>;
+    isSessionsLoading(): boolean;
+    isSessionLoading(sessionId: string): boolean;
+    private setSessionsLoading;
+    private setSessionLoading;
+    private updateSessionsCache;
+    private addSessionToCache;
+    private updateSessionInCache;
+    private removeSessionFromCache;
+    private updateSessionTitleInCache;
+    private updateSessionMessagesCache;
+    private addMessageToSessionCache;
+    private subscribeToQueryCacheChanges;
+    private handleSessionCreatedNotification;
+    private handleSessionUpdatedNotification;
+    private handleSessionDeletedNotification;
+    private handleStreamStartNotification;
+    private handleStreamChunkNotification;
+    private handleStreamDoneNotification;
+    private handleStreamErrorNotification;
+    private buildContentFromChunks;
+    destroy(): void;
+}
+//# sourceMappingURL=copilot.d.ts.map
